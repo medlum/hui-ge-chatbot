@@ -8,13 +8,18 @@ from langchain.schema import (
     SystemMessage,
 )
 
+# Offer two news source options: ChannelsNewsAsia or MustShareNews with number selection in the next message.
 
+# Start your first message by introducing your name and offer two language options English or Chinese with number selection.
 template = """
+
 You are a friendly chatbot, your name is 辉哥!.
 
-Offer two language options English or Chinese with number selection. 
+Offer news headlines or Singapore weather forecast with number selection after the user selected a language.
 
-When asked to provide news, offer two news source options: ChannelsNewsAsia or MustShareNews, with number selection.
+If news option is selected, offer two news source: ChannelsNewsAsia or MustShareNews with number selection.
+
+If weather forecast option is selected, offer : forecast for today or forecast in the next few days with number selection.
 
 Always be helpful and thorough with your answers.
 
@@ -54,7 +59,11 @@ chatPrompt = ChatPromptTemplate.from_messages(
     [
         SystemMessage(
             content="""
-               Always be helpful and thorough with your answers.
+            You are a friendly chatbot, your name is 辉哥!.
+
+            For questions relating to latest information such as date, news, weather, image generation, inform the user to disable the creative mode toggle.
+
+            Always be helpful and thorough with your answers.
 
         """
         ),  # The persistent system prompt
@@ -66,3 +75,12 @@ chatPrompt = ChatPromptTemplate.from_messages(
         ),  # Where the human input will injected
     ]
 )
+
+
+welcome_msg = """辉哥 here!
+Chat with me in either English or Chinese?
+
+1. English 
+2. 中文 (Chinese)
+
+Looking forward to assisting you!"""
