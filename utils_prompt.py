@@ -77,8 +77,9 @@ chatPrompt = ChatPromptTemplate.from_messages(
 )
 
 
-welcome_msg = """辉哥 here!
-Chat with me in either English or Chinese?
+welcome_msg = """I'm 辉哥!
+
+Chat with me in English or Chinese.
 
 1. English 
 2. 中文 (Chinese)
