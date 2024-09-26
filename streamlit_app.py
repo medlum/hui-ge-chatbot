@@ -105,7 +105,7 @@ for index, msg in enumerate(chat_msg.messages):
 
     # bot's message is in even position as welcome message is added at initial
     if index % 2 == 0:
-        message(msg.content.replace("<|im_start|>", "").replace("<|im_end|>", "").replace("<|eot_id|>", ""),
+        message(msg.content.replace("<|im_start|>", "").replace("<|im_end|>", "").replace("<|eot_id|>", "").replace("AI:", "").replace("Human:", ""),
                 is_user=False,
                 key=f"bot{index}",
                 avatar_style="personas",
@@ -180,14 +180,19 @@ if prompt := st.chat_input("Ask me a question..."):
                 response = chat_llm_chain.invoke(
                     {'human_input': f'<|im_start|>{prompt}<|im_end|>'})
 
+                # remove prompt format for better display
                 edited_response = response["text"].replace("AI:", "")
+                human = re.search(r"Human:.*|human:.*", edited_response)
+                if human is not None:
+                    # exclude "Human:" located at end of string
+                    edited_response = edited_response[:human.start()]
 
                 # show message
                 message(edited_response,
                         is_user=False,
                         key=f"bot_2",
                         avatar_style="personas",
-                        seed="Angel",
+                        seed="Sophia",
                         allow_html=True,
                         is_table=True,)
 
